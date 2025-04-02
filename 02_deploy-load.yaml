@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: app-ns
+  name: load-testing
+  labels:
+    app: load-testing
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: load-testing
+  template:
+    metadata:
+      name: load-testing
+      labels:
+        app: load-testing
+    spec:
+      containers:
+      - name: load-testing
+        image: busybox
+        command:
+        - /bin/sh
+        - -c
+        - "while true; do wget -q apache-service -O /dev/null; done"
